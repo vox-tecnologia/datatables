@@ -1,5 +1,5 @@
 {
-  "name": "italolelis/datatables",
+  "name": "vox/datatables",
   "description": "A PHP wrapper for DataTables (http://www.datatables.net) plugin for jQuery.",
   "type": "library",
   "license": "MIT",
@@ -8,7 +8,7 @@
     "grid",
     "wrapper"
   ],
-  "homepage": "https://github.com/italolelis/datatables",
+  "homepage": "https://github.com/vox-tecnologia/datatables",
   "authors": [
     {
       "name": "Ítalo Lelis de Vietro",
