@@ -4,6 +4,10 @@ namespace Datatable\Entity;
 
 use Datatable\LanguageConfig;
 
+/**
+ * Class LanguageOptions
+ * @package Datatable\Entity
+ */
 class LanguageOptions extends Option
 {
     protected $oPaginate;
@@ -216,9 +220,14 @@ class LanguageOptions extends Option
         return $this;
     }
 
+    /**
+     * @param LanguageConfig $config
+     * @return LanguageOptions
+     */
     public static function fromConfig(LanguageConfig $config)
     {
         $options = new self();
+
         return $options->setSEmptyTable($config->getEmptyTable())
             ->setSInfo($config->getInfo())
             ->setSInfoEmpty($config->getInfoEmpty())

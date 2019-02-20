@@ -4,6 +4,10 @@ namespace Datatable\Entity;
 
 use Datatable\LanguageConfig;
 
+/**
+ * Class LanguagePagination
+ * @package Datatable\Entity
+ */
 class LanguagePagination extends Option
 {
     protected $sFirst;
@@ -83,9 +87,14 @@ class LanguagePagination extends Option
         return $this;
     }
 
+    /**
+     * @param LanguageConfig $config
+     * @return LanguagePagination
+     */
     public static function fromConfig(LanguageConfig $config)
     {
         $pagination = new self();
+
         return $pagination->setSFirst($config->getPaginateFirst())
             ->setSLast($config->getPaginateLast())
             ->setSNext($config->getPaginateNext())
