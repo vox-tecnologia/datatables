@@ -4,6 +4,10 @@ namespace Datatable\Entity;
 
 use Datatable\Config;
 
+/**
+ * Class DatatableOptions
+ * @package Datatable\Entity
+ */
 class DatatableOptions extends Option
 {
     protected $bPaginate;
@@ -50,7 +54,6 @@ class DatatableOptions extends Option
         $this->bServerSide = $bServerSide;
         return $this;
     }
-
 
     /**
      * @return mixed
@@ -502,9 +505,14 @@ class DatatableOptions extends Option
         return $this;
     }
 
+    /**
+     * @param Config $config
+     * @return DatatableOptions
+     */
     public static function fromConfig(Config $config)
     {
         $options = new self();
+
         return $options->setBPaginate($config->isPaginationEnabled())
             ->setBLengthChange($config->isLengthChangeEnabled())
             ->setBProcessing($config->isProcessingEnabled())
