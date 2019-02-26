@@ -9,6 +9,11 @@ class Response
     protected $data;
     protected $config;
 
+    /**
+     * Response constructor.
+     * @param $data
+     * @param $config
+     */
     public function __construct($data, $config)
     {
         $this->data = $data;
@@ -17,7 +22,7 @@ class Response
 
     /**
      * Get the JSON formatted date for a AJAX request
-     * @return array
+     * @return string
      */
     public function toArray()
     {
@@ -30,7 +35,7 @@ class Response
 
     /**
      * Get the JSON formatted date for a AJAX request
-     * @return string
+     * @return false|string
      */
     public function toJson()
     {
@@ -40,13 +45,14 @@ class Response
     /**
      * Render the return JSON data for the AJAX request with the DataTable_DataResult
      * returned from the current DataTable's loadData() method
-     *
      * @param DataResult $result
-     * @return string
+     * @param Request $request
+     * @return array
      */
     protected function renderReturnData(DataResult $result, Request $request)
     {
         $rows = [];
+
         foreach ($result->getData() as $object) {
             $row = [];
             foreach ($this->config->getColumns() as $column) {
@@ -61,6 +67,7 @@ class Response
             'aaData' => $rows,
             'sEcho' => $request->getEcho(),
         ];
+
         return $data;
     }
 
@@ -79,6 +86,7 @@ class Response
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $property = $column->getName();
+
         if (is_array($object)) {
             $property = "[{$property}]";
         }

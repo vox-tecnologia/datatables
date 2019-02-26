@@ -2,8 +2,9 @@
 
 namespace Datatable;
 
-use Collections\ArrayList;
 use Collections\CollectionInterface;
+use Collections\Map;
+use Collections\Vector;
 
 /**
  * Represents the datatables configuration
@@ -16,7 +17,9 @@ class Config
      */
     const PAGINATION_TYPE_FULL_NUMBERS = 'full_numbers';
     const PAGINATION_TYPE_TWO_BUTTON = 'two_button';
-
+    /**
+     * @var string
+     */
     protected $tableId = 'datatable';
 
     /**
@@ -36,27 +39,66 @@ class Config
      * @var string
      */
     protected $ajaxSource;
+    /**
+     * @var bool
+     */
     protected $isProcessingEnabled = true;
+    /**
+     * @var bool
+     */
     protected $isServerSideEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isPaginationEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isLengthChangeEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isFilterEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isInfoEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isSortEnabled = true;
+    /**
+     * @var bool
+     */
     protected $isJQueryUIEnabled = true;
+    /**
+     * @var bool
+     */
     protected $isAutoWidthEnabled = true;
+    /**
+     * @var bool
+     */
     protected $isScrollCollapseEnabled = false;
+    /**
+     * @var bool
+     */
     protected $isScrollInfiniteEnabled = false;
+    /**
+     * @var
+     */
     protected $class;
 
     /**
-     * @var ArrayList
+     * @var Vector
      */
     protected $lengthMenu;
     protected $scrollX;
     protected $scrollY;
     protected $scrollLoadGap;
     protected $paginationType = self::PAGINATION_TYPE_FULL_NUMBERS;
+    /**
+     * @var LanguageConfig
+     */
     protected $languageConfig;
     protected $loadingHtml = '<p>loading data</p>';
     protected $cookieDuration = 7200;
@@ -79,10 +121,13 @@ class Config
      */
     protected $staticMaxLength = 100;
 
+    /**
+     * Config constructor.
+     */
     public function __construct()
     {
-        $this->columns = new ArrayList();
-        $this->lengthMenu = new ArrayList([10 => 10, 25 => 25, 50 => 50, 100 => 100]);
+        $this->columns = new Map();
+        $this->lengthMenu = new Vector([10 => 10, 25 => 25, 50 => 50, 100 => 100]);
     }
 
     /**
@@ -97,323 +142,523 @@ class Config
      * @param string $tableId
      * @return $this
      */
-    public function setTableId($tableId)
+    public function setTableId(string $tableId)
     {
         $this->tableId = $tableId;
-        return $this;
-    }
 
-    public function setColumns($columns)
-    {
-        $this->columns = $columns;
         return $this;
     }
 
     /**
-     * @return ArrayList
+     * @return CollectionInterface
      */
     public function getColumns()
     {
         return $this->columns;
     }
 
-    public function setDisplayLength($displayLength)
+    /**
+     * @param $columns
+     * @return $this
+     */
+    public function setColumns($columns)
     {
-        $this->displayLength = $displayLength;
+        $this->columns = $columns;
+
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getDisplayLength()
     {
         return $this->displayLength;
     }
 
-    public function setPaginationEnabled($isPaginationEnabled)
+    /**
+     * @param $displayLength
+     * @return $this
+     */
+    public function setDisplayLength($displayLength)
     {
-        $this->isPaginationEnabled = $isPaginationEnabled;
+        $this->displayLength = $displayLength;
+
         return $this;
     }
 
-    public function isPaginationEnabled()
-    {
-        return $this->isPaginationEnabled;
-    }
-
-    public function setLengthChangeEnabled($isLengthChangeEnabled)
-    {
-        $this->isLengthChangeEnabled = $isLengthChangeEnabled;
-        return $this;
-    }
-
-    public function isLengthChangeEnabled()
-    {
-        return $this->isLengthChangeEnabled;
-    }
-
-    public function setFilterEnabled($isFilterEnabled)
-    {
-        $this->isFilterEnabled = $isFilterEnabled;
-        return $this;
-    }
-
-    public function isFilterEnabled()
-    {
-        return $this->isFilterEnabled;
-    }
-
-    public function setInfoEnabled($isInfoEnabled)
-    {
-        $this->isInfoEnabled = $isInfoEnabled;
-        return $this;
-    }
-
-    public function isInfoEnabled()
-    {
-        return $this->isInfoEnabled;
-    }
-
-    public function setSortEnabled($isSortEnabled)
-    {
-        $this->isSortEnabled = $isSortEnabled;
-        return $this;
-    }
-
-    public function isSortEnabled()
-    {
-        return $this->isSortEnabled;
-    }
-
-    public function setAjaxSource($ajaxSource)
-    {
-        $this->ajaxSource = $ajaxSource;
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getAjaxSource()
     {
         return $this->ajaxSource;
     }
 
-    public function setServerSideEnabled($isServerSideEnabled)
+    /**
+     * @param string $ajaxSource
+     * @return $this
+     */
+    public function setAjaxSource(string $ajaxSource)
     {
-        $this->isServerSideEnabled = $isServerSideEnabled;
+        $this->ajaxSource = $ajaxSource;
+
         return $this;
     }
 
-    public function isServerSideEnabled()
-    {
-        return $this->isServerSideEnabled;
-    }
-
-    public function setProcessingEnabled($isProcessingEnabled)
-    {
-        $this->isProcessingEnabled = $isProcessingEnabled;
-        return $this;
-    }
-
+    /**
+     * @return bool
+     */
     public function isProcessingEnabled()
     {
         return $this->isProcessingEnabled;
     }
 
-    public function setJQueryUIEnabled($isJQueryUIEnabled)
+    /**
+     * @param bool $isProcessingEnabled
+     * @return $this
+     */
+    public function setIsProcessingEnabled(bool $isProcessingEnabled)
     {
-        $this->isJQueryUIEnabled = $isJQueryUIEnabled;
+        $this->isProcessingEnabled = $isProcessingEnabled;
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isServerSideEnabled()
+    {
+        return $this->isServerSideEnabled;
+    }
+
+    /**
+     * @param bool $isServerSideEnabled
+     * @return $this
+     */
+    public function setIsServerSideEnabled(bool $isServerSideEnabled)
+    {
+        $this->isServerSideEnabled = $isServerSideEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaginationEnabled()
+    {
+        return $this->isPaginationEnabled;
+    }
+
+    /**
+     * @param bool $isPaginationEnabled
+     * @return $this
+     */
+    public function setIsPaginationEnabled(bool $isPaginationEnabled)
+    {
+        $this->isPaginationEnabled = $isPaginationEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLengthChangeEnabled()
+    {
+        return $this->isLengthChangeEnabled;
+    }
+
+    /**
+     * @param bool $isLengthChangeEnabled
+     * @return $this
+     */
+    public function setIsLengthChangeEnabled(bool $isLengthChangeEnabled)
+    {
+        $this->isLengthChangeEnabled = $isLengthChangeEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFilterEnabled()
+    {
+        return $this->isFilterEnabled;
+    }
+
+    /**
+     * @param bool $isFilterEnabled
+     * @return $this
+     */
+    public function setIsFilterEnabled(bool $isFilterEnabled)
+    {
+        $this->isFilterEnabled = $isFilterEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInfoEnabled()
+    {
+        return $this->isInfoEnabled;
+    }
+
+    /**
+     * @param bool $isInfoEnabled
+     * @return $this
+     */
+    public function setIsInfoEnabled(bool $isInfoEnabled)
+    {
+        $this->isInfoEnabled = $isInfoEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSortEnabled()
+    {
+        return $this->isSortEnabled;
+    }
+
+    /**
+     * @param bool $isSortEnabled
+     * @return $this
+     */
+    public function setIsSortEnabled(bool $isSortEnabled)
+    {
+        $this->isSortEnabled = $isSortEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
     public function isJQueryUIEnabled()
     {
         return $this->isJQueryUIEnabled;
     }
 
-    public function setAutoWidthEnabled($isAutoWidthEnabled)
+    /**
+     * @param bool $isJQueryUIEnabled
+     * @return $this
+     */
+    public function setIsJQueryUIEnabled(bool $isJQueryUIEnabled)
     {
-        $this->isAutoWidthEnabled = $isAutoWidthEnabled;
+        $this->isJQueryUIEnabled = $isJQueryUIEnabled;
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isAutoWidthEnabled()
     {
         return $this->isAutoWidthEnabled;
     }
 
-    public function setScrollCollapseEnabled($isScrollCollapseEnabled)
+    /**
+     * @param bool $isAutoWidthEnabled
+     * @return $this
+     */
+    public function setIsAutoWidthEnabled(bool $isAutoWidthEnabled)
     {
-        $this->isScrollCollapseEnabled = $isScrollCollapseEnabled;
+        $this->isAutoWidthEnabled = $isAutoWidthEnabled;
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isScrollCollapseEnabled()
     {
         return $this->isScrollCollapseEnabled;
     }
 
-    public function setClass($class)
+    /**
+     * @param bool $isScrollCollapseEnabled
+     * @return $this
+     */
+    public function setIsScrollCollapseEnabled(bool $isScrollCollapseEnabled)
     {
-        $this->class = $class;
+        $this->isScrollCollapseEnabled = $isScrollCollapseEnabled;
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isScrollInfiniteEnabled()
+    {
+        return $this->isScrollInfiniteEnabled;
+    }
+
+    /**
+     * @param bool $isScrollInfiniteEnabled
+     * @return $this
+     */
+    public function setIsScrollInfiniteEnabled(bool $isScrollInfiniteEnabled)
+    {
+        $this->isScrollInfiniteEnabled = $isScrollInfiniteEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getClass()
     {
         return $this->class;
     }
 
-    public function setLengthMenu($lengthMenu)
+    /**
+     * @param $class
+     * @return $this
+     */
+    public function setClass($class)
     {
-        $this->lengthMenu = $lengthMenu;
+        $this->class = $class;
+
         return $this;
     }
 
+    /**
+     * @return Vector
+     */
     public function getLengthMenu()
     {
         return $this->lengthMenu;
     }
 
-    public function setScrollX($scrollX)
+    /**
+     * @param Vector $lengthMenu
+     * @return $this
+     */
+    public function setLengthMenu(Vector $lengthMenu)
     {
-        $this->scrollX = $scrollX;
+        $this->lengthMenu = $lengthMenu;
+
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getScrollX()
     {
         return $this->scrollX;
     }
 
-    public function setScrollY($scrollY)
+    /**
+     * @param $scrollX
+     * @return $this
+     */
+    public function setScrollX($scrollX)
     {
-        $this->scrollY = $scrollY;
+        $this->scrollX = $scrollX;
+
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getScrollY()
     {
         return $this->scrollY;
     }
 
+    /**
+     * @param $scrollY
+     * @return $this
+     */
+    public function setScrollY($scrollY)
+    {
+        $this->scrollY = $scrollY;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getScrollLoadGap()
     {
         return $this->scrollLoadGap;
     }
 
+    /**
+     * @param $scrollLoadGap
+     * @return $this
+     */
     public function setScrollLoadGap($scrollLoadGap)
     {
         $this->scrollLoadGap = $scrollLoadGap;
+
         return $this;
     }
 
-    public function setPaginationType($paginationType)
-    {
-        $this->paginationType = $paginationType;
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getPaginationType()
     {
         return $this->paginationType;
     }
 
-    public function setLanguageConfig(LanguageConfig $languageConfig)
+    /**
+     * @param string $paginationType
+     * @return $this
+     */
+    public function setPaginationType(string $paginationType)
     {
-        $this->languageConfig = $languageConfig;
+        $this->paginationType = $paginationType;
+
         return $this;
     }
 
     /**
-     * @return LanguageConfig
+     * @return mixed
      */
     public function getLanguageConfig()
     {
         return $this->languageConfig;
     }
 
-    public function isScrollInfiniteEnabled()
+    /**
+     * @param $languageConfig
+     * @return $this
+     */
+    public function setLanguageConfig($languageConfig)
     {
-        return $this->isScrollInfiniteEnabled;
-    }
+        $this->languageConfig = $languageConfig;
 
-    public function setScrollInfiniteEnabled($isScrollInfiniteEnabled)
-    {
-        $this->isScrollInfiniteEnabled = $isScrollInfiniteEnabled;
         return $this;
     }
 
-    public function setLoadingHtml($loadingHtml)
-    {
-        $this->loadingHtml = $loadingHtml;
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getLoadingHtml()
     {
         return $this->loadingHtml;
     }
 
+    /**
+     * @param string $loadingHtml
+     * @return $this
+     */
+    public function setLoadingHtml(string $loadingHtml)
+    {
+        $this->loadingHtml = $loadingHtml;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
     public function getCookieDuration()
     {
         return $this->cookieDuration;
     }
 
-    public function setCookieDuration($cookieDuration)
+    /**
+     * @param int $cookieDuration
+     * @return $this
+     */
+    public function setCookieDuration(int $cookieDuration)
     {
         $this->cookieDuration = $cookieDuration;
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isSaveStateEnabled()
     {
         return $this->isSaveStateEnabled;
     }
 
-    public function setSaveStateEnabled($isSaveStateEnabled)
+    /**
+     * @param bool $isSaveStateEnabled
+     * @return $this
+     */
+    public function setIsSaveStateEnabled(bool $isSaveStateEnabled)
     {
         $this->isSaveStateEnabled = $isSaveStateEnabled;
+
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCookiePrefix()
     {
         return $this->cookiePrefix;
     }
 
+    /**
+     * @param $cookiePrefix
+     * @return $this
+     */
     public function setCookiePrefix($cookiePrefix)
     {
         $this->cookiePrefix = $cookiePrefix;
+
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getStripClasses()
     {
         return $this->stripClasses;
     }
 
-    public function setStripClasses($stripClasses)
+    /**
+     * @param array $stripClasses
+     * @return $this
+     */
+    public function setStripClasses(array $stripClasses)
     {
         $this->stripClasses = $stripClasses;
+
         return $this;
     }
 
-    public function getStaticMaxLength()
-    {
-        return $this->staticMaxLength;
-    }
-
-    public function setStaticMaxLength($staticMaxLength)
-    {
-        $this->staticMaxLength = $staticMaxLength;
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getDom()
     {
         return $this->dom;
     }
 
-    public function setDom($dom)
+    /**
+     * @param string $dom
+     * @return $this
+     */
+    public function setDom(string $dom)
     {
         $this->dom = $dom;
+
         return $this;
     }
 }

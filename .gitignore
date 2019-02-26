@@ -24,6 +24,8 @@
 # Composer PHAR
 /composer.phar
 
+.idea/
+
 # Created by https://www.gitignore.io/api/symfony,eclipse,phpstorm,zendframework,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=symfony,eclipse,phpstorm,zendframework,visualstudiocode
 
