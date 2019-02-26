@@ -18,16 +18,16 @@ abstract class DatatablesTestCase extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->config->setClass("display")
             ->setDisplayLength(static::DISPLAY_LENGHT)
-            ->setPaginationEnabled(true)
-            ->setLengthChangeEnabled(true)
-            ->setFilterEnabled(true)
-            ->setInfoEnabled(true)
-            ->setSortEnabled(true)
-            ->setAutoWidthEnabled(true)
-            ->setScrollCollapseEnabled(false)
+            ->setIsPaginationEnabled(true)
+            ->setIsLengthChangeEnabled(true)
+            ->setIsFilterEnabled(true)
+            ->setIsInfoEnabled(true)
+            ->setIsSortEnabled(true)
+            ->setIsAutoWidthEnabled(true)
+            ->setIsScrollCollapseEnabled(false)
             ->setPaginationType(Config::PAGINATION_TYPE_FULL_NUMBERS)
-            ->setJQueryUIEnabled(false)
-            ->setServerSideEnabled(true)
+            ->setIsJQueryUIEnabled(false)
+            ->setIsServerSideEnabled(true)
             ->setAjaxSource('/list');
 
         $_GET['iDisplayLength'] = 10;

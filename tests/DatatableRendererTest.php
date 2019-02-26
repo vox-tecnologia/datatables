@@ -2,7 +2,7 @@
 
 namespace Tests\Datatable;
 
-use Collections\ArrayList;
+use Collections\Vector;
 use Datatable\Column;
 use Datatable\Datatable;
 
@@ -24,9 +24,9 @@ class DatatableRendererTest extends DatatablesTestCase
 
     public function testRenderTableWithStaticData()
     {
-        $columns = new ArrayList();
+        $columns = new Vector();
         $columns->add((new Column())->setName('testHeader')->setTitle('Header'));
-        $this->config->setServerSideEnabled(false)
+        $this->config->setIsServerSideEnabled(false)
             ->setColumns($columns);
         $datatable = new Datatable($this->config);
         $table = '<table cellspacing="0" class="display" id="datatable"><thead><tr><th>Header</th></tr></thead><tbody><tr><td>test 1</td></tr><tr><td>test 2</td></tr></tbody></table><!-- Built with italolelis/datatables -->';

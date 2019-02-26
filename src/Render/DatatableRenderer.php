@@ -2,7 +2,7 @@
 
 namespace Datatable\Render;
 
-use Collections\ArrayList;
+use Collections\Vector;
 use Datatable\Column;
 use Datatable\Config;
 use Datatable\DataResult;
@@ -43,6 +43,7 @@ class DatatableRenderer implements RenderInterface
     {
         $options = json_encode($this->renderDataTableOptions());
         $js = "<script type=\"text/javascript\">$(document).ready(function(){var {$this->config->getTableId()} = $('#{$this->config->getTableId()}').dataTable({$options});});</script>";
+
         return $js;
     }
 
@@ -57,6 +58,7 @@ class DatatableRenderer implements RenderInterface
         $html = '';
         $html .= "<table cellspacing=\"0\" class=\"{$this->config->getClass()}\" id=\"{$this->config->getTableId()}\">";
         $html .= "<thead><tr>";
+        /** @var Column $column */
         foreach ($this->config->getColumns() as $column) {
             if ($column->isVisible()) {
                 $html .= "<th>{$column->getTitle()}</th>";
@@ -93,6 +95,7 @@ class DatatableRenderer implements RenderInterface
 
         foreach ($data as $object) {
             $row = '';
+            /** @var Column $column */
             foreach ($this->config->getColumns() as $column) {
                 $value = $this->getDataForColumn($object, $column);
 
@@ -123,6 +126,7 @@ class DatatableRenderer implements RenderInterface
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $property = $column->getName();
+
         if (is_array($object)) {
             $property = "[{$property}]";
         }
@@ -157,6 +161,7 @@ class DatatableRenderer implements RenderInterface
     protected function renderDataTableColumnOptions()
     {
         $columns = [];
+        /** @var Column $column */
         foreach ($this->config->getColumns() as $column) {
             $tempColumn = [
                 "bSortable" => $column->isSortable(),
@@ -176,45 +181,49 @@ class DatatableRenderer implements RenderInterface
 
             $columns[] = $tempColumn;
         }
+
         return $columns;
     }
 
     /**
      * Build the array for the 'aaSorting' option
-     *
-     * @return ArrayList
+     * @return Vector
      */
     protected function renderDefaultSortColumns()
     {
-        $columns = new ArrayList();
+        $columns = new Vector();
+        /**
+         * @var  $id
+         * @var Column $column
+         */
         foreach ($this->config->getColumns() as $id => $column) {
             if ($column->isDefaultSort()) {
                 $columns->add([$id, $column->getDefaultSortDirection()]);
             }
         }
+
         return $columns;
     }
 
     /**
      * Build the array for the 'aLengthMenu' option
-     *
-     * @return array
+     * @return Vector
      */
     protected function renderLengthMenu()
     {
-        return new ArrayList([array_keys($this->config->getLengthMenu()->toArray()), $this->config->getLengthMenu()->values()]);
+        return new Vector([array_keys($this->config->getLengthMenu()->toArray()), $this->config->getLengthMenu()->values()]);
     }
 
     /**
      * Build the array for the 'oLanguage' option from the LanguageConfig object
-     *
-     * @return array
+     * @return LanguageOptions
      */
     protected function renderLanguageConfig()
     {
         $pagination = LanguagePagination::fromConfig($this->config->getLanguageConfig());
         $options = LanguageOptions::fromConfig($this->config->getLanguageConfig());
         $options->setOPaginate($pagination);
+
         return $options;
     }
 }

@@ -13,14 +13,6 @@ class DatatableTest extends DatatablesTestCase
         $this->assertInstanceOf(Datatable::class, $datatable);
     }
 
-    /**
-     * @expectedException \PHPUnit_Framework_Error
-     */
-    public function testInvalidInstance()
-    {
-        $datatable = new Datatable(null);
-    }
-
     public function testRequestInstance()
     {
         $datatable = new Datatable($this->config);

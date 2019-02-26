@@ -2,7 +2,7 @@
 
 namespace Datatable;
 
-use Collections\Dictionary;
+use Collections\Map;
 
 /**
  * Represents datatable request
@@ -144,25 +144,26 @@ class Request
     /**
      * Hydrate the current object from a $_GET, $_POST, or $_REQUEST array
      *
-     * @param Dictionary $request
+     * @param Map $request
      * @return $this
      */
-    public function createFromCollection(Dictionary $request)
+    public function createFromCollection(Map $request)
     {
-        $this->setDisplayLength($request->tryGet('iDisplayLength'));
-        $this->setDisplayStart($request->tryGet('iDisplayStart'));
-        $this->setEcho($request->tryGet('sEcho'));
-        $this->setSearch($request->tryGet('sSearch'));
+        $this->setDisplayLength($request->get('iDisplayLength'));
+        $this->setDisplayStart($request->get('iDisplayStart'));
+        $this->setEcho($request->get('sEcho'));
+        $this->setSearch($request->get('sSearch'));
 
-        $num = $request->tryGet('iSortingCols');
+        $num = $request->get('iSortingCols');
 
         $sortCols = array();
 
         for ($x = 0; $x < $num; $x++) {
-            $sortCols[$request->tryGet('iSortCol_' . $x)] = $request->tryGet('sSortDir_' . $x);
+            $sortCols[$request->get('iSortCol_' . $x)] = $request->get('sSortDir_' . $x);
         }
 
         $this->setSortColumns($sortCols);
+
         return $this;
     }
 
@@ -173,7 +174,7 @@ class Request
     public static function createFromGlobals()
     {
         $request = new static();
-        $data = new Dictionary($_GET);
+        $data = new Map($_GET);
         $data->addAll($_POST);
 
         return $request->createFromCollection($data);
