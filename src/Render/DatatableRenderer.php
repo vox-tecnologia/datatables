@@ -31,8 +31,15 @@ class DatatableRenderer implements RenderInterface
     public function render($data = null)
     {
         if (!$data instanceof DataResult) {
-            $data = new DataResult($data, count($data));
+            $numResult = 0;
+            
+            if (is_array($data) || ($data instanceof Countable)) {
+                $numResult = count($data);
+            }
+            
+            $data = new DataResult($data, $numResult);
         }
+        
         return $this->renderTable($data);
     }
 
