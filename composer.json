@@ -17,13 +17,13 @@
   ],
   "require": {
     "easyframework/collections": "~4.1",
-    "symfony/property-access": "~2.6",
-    "symfony/event-dispatcher": "~2.6"
+    "symfony/property-access": "~3.4",
+    "symfony/event-dispatcher": "~3.4"
   },
   "require-dev": {
     "php": ">=5.4.0",
     "phpunit/phpunit": "~4.5",
-    "symfony/var-dumper": "~2.6"
+    "symfony/var-dumper": "~3.4"
   },
   "autoload": {
     "psr-4": {
