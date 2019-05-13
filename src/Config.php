@@ -2,8 +2,8 @@
 
 namespace Datatable;
 
-use Collections\ArrayList;
-use Collections\CollectionInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Represents the datatables configuration
@@ -21,7 +21,7 @@ class Config
 
     /**
      * The collection of columns
-     * @var CollectionInterface
+     * @var Collection
      */
     protected $columns;
 
@@ -50,7 +50,7 @@ class Config
     protected $class;
 
     /**
-     * @var ArrayList
+     * @var ArrayCollection
      */
     protected $lengthMenu;
     protected $scrollX;
@@ -81,8 +81,8 @@ class Config
 
     public function __construct()
     {
-        $this->columns = new ArrayList();
-        $this->lengthMenu = new ArrayList([10 => 10, 25 => 25, 50 => 50, 100 => 100]);
+        $this->columns = new ArrayCollection();
+        $this->lengthMenu = new ArrayCollection([10 => 10, 25 => 25, 50 => 50, 100 => 100]);
     }
 
     /**
@@ -110,7 +110,7 @@ class Config
     }
 
     /**
-     * @return ArrayList
+     * @return ArrayCollection
      */
     public function getColumns()
     {
