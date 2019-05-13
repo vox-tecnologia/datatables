@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "easyframework/collections": "~4.1",
+    "easyframework/collections": "~7.0",
     "symfony/property-access": "~3.4",
     "symfony/event-dispatcher": "~3.4"
   },
