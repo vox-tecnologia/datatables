@@ -14,7 +14,7 @@ class DatatableTest extends DatatablesTestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException \TypeError
      */
     public function testInvalidInstance()
     {

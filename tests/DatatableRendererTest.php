@@ -2,15 +2,15 @@
 
 namespace Tests\Datatable;
 
-use Collections\ArrayList;
 use Datatable\Column;
 use Datatable\Datatable;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class DatatableRendererTest extends DatatablesTestCase
 {
     public function testRenderJS()
     {
-        $js = '<script type="text/javascript">$(document).ready(function(){var datatable = $(\'#datatable\').dataTable({"bPaginate":true,"bLengthChange":true,"bProcessing":true,"bFilter":true,"bSort":true,"bInfo":true,"bAutoWidth":true,"iDisplayLength":10,"sPaginationType":"full_numbers","iCookieDuration":7200,"asStripClasses":["odd","even"],"aaSorting":[],"aLengthMenu":[[0,1,2,3],[10,25,50,100]],"bServerSide":true,"sAjaxSource":"\/list"});});</script>';
+        $js = '<script type="text/javascript">$(document).ready(function(){var datatable = $(\'#datatable\').dataTable({"bPaginate":true,"bLengthChange":true,"bProcessing":true,"bFilter":true,"bSort":true,"bInfo":true,"bAutoWidth":true,"iDisplayLength":10,"sPaginationType":"full_numbers","iCookieDuration":7200,"asStripClasses":["odd","even"],"aaSorting":{},"aLengthMenu":{},"bServerSide":true,"sAjaxSource":"\/list"});});</script>';
         $datatable = new Datatable($this->config);
         $this->assertEquals($js, $datatable->getRenderer()->renderJs());
     }
@@ -24,7 +24,7 @@ class DatatableRendererTest extends DatatablesTestCase
 
     public function testRenderTableWithStaticData()
     {
-        $columns = new ArrayList();
+        $columns = new ArrayCollection();
         $columns->add((new Column())->setName('testHeader')->setTitle('Header'));
         $this->config->setServerSideEnabled(false)
             ->setColumns($columns);

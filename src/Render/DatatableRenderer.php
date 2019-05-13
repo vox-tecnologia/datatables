@@ -2,13 +2,14 @@
 
 namespace Datatable\Render;
 
-use Collections\ArrayList;
+use Doctrine\Common\Collections\ArrayCollection;
 use Datatable\Column;
 use Datatable\Config;
 use Datatable\DataResult;
 use Datatable\Entity\DatatableOptions;
 use Datatable\Entity\LanguageOptions;
 use Datatable\Entity\LanguagePagination;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
@@ -33,7 +34,7 @@ class DatatableRenderer implements RenderInterface
         if (!$data instanceof DataResult) {
             $numResult = 0;
             
-            if (is_array($data) || ($data instanceof Countable)) {
+            if (is_array($data) || ($data instanceof \Countable)) {
                 $numResult = count($data);
             }
             
@@ -189,11 +190,11 @@ class DatatableRenderer implements RenderInterface
     /**
      * Build the array for the 'aaSorting' option
      *
-     * @return ArrayList
+     * @return ArrayCollection
      */
     protected function renderDefaultSortColumns()
     {
-        $columns = new ArrayList();
+        $columns = new ArrayCollection();
         foreach ($this->config->getColumns() as $id => $column) {
             if ($column->isDefaultSort()) {
                 $columns->add([$id, $column->getDefaultSortDirection()]);
@@ -205,11 +206,11 @@ class DatatableRenderer implements RenderInterface
     /**
      * Build the array for the 'aLengthMenu' option
      *
-     * @return array
+     * @return Collection
      */
     protected function renderLengthMenu()
     {
-        return new ArrayList([array_keys($this->config->getLengthMenu()->toArray()), $this->config->getLengthMenu()->values()]);
+        return new ArrayCollection([array_keys($this->config->getLengthMenu()->toArray()), array_values($this->config->getLengthMenu()->toArray())]);
     }
 
     /**

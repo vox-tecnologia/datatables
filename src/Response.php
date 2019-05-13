@@ -42,7 +42,7 @@ class Response
      * returned from the current DataTable's loadData() method
      *
      * @param DataResult $result
-     * @return string
+     * @return array
      */
     protected function renderReturnData(DataResult $result, Request $request)
     {
