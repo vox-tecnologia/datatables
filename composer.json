@@ -17,13 +17,13 @@
   ],
   "require": {
     "doctrine/collections": "~1.6",
-    "symfony/property-access": "~3.4",
-    "symfony/event-dispatcher": "~3.4"
+    "symfony/property-access": "^4.4",
+    "symfony/event-dispatcher": "^4.4"
   },
   "require-dev": {
     "php": ">=5.4.0",
-    "phpunit/phpunit": "~4.5",
-    "symfony/var-dumper": "~3.4"
+    "phpunit/phpunit": "~8.4",
+    "symfony/var-dumper": "~4.4"
   },
   "autoload": {
     "psr-4": {
